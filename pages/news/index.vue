@@ -1,0 +1,56 @@
+<template>
+  <div class="container">
+    <h1>News</h1>
+    <ul class="users">
+      <li v-for="post in news" :key="post.id">
+        <nuxt-link :to="'/news/' + post.slug">{{ post.title.rendered }}</nuxt-link>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+  export default {
+    computed: {
+      news() {
+        return this.$store.state.news.list;
+      },
+    },
+    async fetch({ store }) {
+      return store.dispatch('news/fetchNews');
+    },
+  }
+</script>
+
+<style>
+  .container {
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .title {
+    font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    display: block;
+    font-weight: 300;
+    font-size: 100px;
+    color: #35495e;
+    letter-spacing: 1px;
+  }
+
+  .subtitle {
+    font-weight: 300;
+    font-size: 42px;
+    color: #526488;
+    word-spacing: 5px;
+    padding-bottom: 15px;
+  }
+
+  .links {
+    padding-top: 15px;
+  }
+</style>
